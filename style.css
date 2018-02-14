@@ -1,0 +1,196 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1,h2,h3,h4,p,ul,li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.grid-main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: auto; 
+}
+.grid-main > div, .grid-main > nav, .grid-main > article {
+    text-align: center;
+    color: white;
+}
+
+/* TOP BAR */
+.top-bar {
+    text-align: center;
+    grid-column: 1/13;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    background-color: rgb(22, 22, 22);
+    align-self: stretch;
+    padding: 1rem;
+    border-bottom: 5px solid rgb(105, 38, 38);
+}
+
+/* YEAR PICKER */
+.years {
+    grid-column: 1/4;
+    grid-row: 2/3;
+    align-self: start;
+}
+.year-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+}
+.year-list > li {
+    border-bottom: 3px solid rgb(27, 27, 27);
+    background-color: rgb(27, 27, 27);
+    padding: 15px 0;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+.year-list > li > span {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    padding: 10px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+.year-list > li > span:hover {
+    transform: rotateZ(90deg);
+}    
+.year-list > li:hover {
+    background-color: rgb(48, 48, 48);
+    border-bottom: 3px solid rgb(105, 38, 38);
+}
+/* this are the lists where each person is */
+.year-list ul {
+    width: 100%;
+    background-color: rgb(27, 27, 27);    
+    max-height: 0px;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: max-height 0.4s ease-in-out, background-color 0.3s;
+}
+
+.year-list > li:hover ul {
+    background-color: rgb(48, 48, 48);    
+}
+
+.year-list li ul.expand {
+    max-height: 20rem;
+}
+/* Individual names */
+.year-list li ul li {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.year-list li ul li:hover {
+    background-color:rgb(105, 38, 38);
+}    
+
+
+/* CONTENT */
+.content {
+    grid-column: 4/13;
+    grid-row: 2/3;
+    background-color: grey;
+}
+.year-displayed {
+    color: black;
+    text-transform: uppercase;
+    padding: 1rem 0;
+}
+
+
+/* PEOPLE */
+.people-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.person {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50% auto auto 35%;
+    background-color: whitesmoke;
+    border-left: 5px solid rgb(105, 38, 38);
+    color: rgb(29, 29, 29);
+    padding-bottom: 10px;
+    margin: 1rem;
+    flex-basis: 15rem;
+    flex-shrink: 1;
+    height: 19rem;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 2px 2px 10px grey;
+}
+
+.person-img {
+    background-color: rgb(255, 0, 0);
+    background-size: cover;
+    align-self: stretch;
+    overflow: hidden;
+    z-index: 2;
+    position: relative;
+}
+
+.person-img .img-overlay {
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    vertical-align: center;
+    background-color: rgba(105, 38, 38, 0.95);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transform: translateX(-100%);
+    transform-origin: top;
+    transition: transform 0.3s ease; 
+    cursor: pointer;
+}
+
+.person-img .img-overlay span{
+    color: white;
+}
+
+.person-img img {
+    position: relative;
+    width: 100%;
+    top: 0;
+}
+
+.person-img:hover .img-overlay{
+    transform: rotateX(0);
+}
+
+.person-name {
+    text-align: left;
+    padding: 0 10px;
+    font-size: 1.5rem;
+}
+.person-occu {
+    text-align: left;
+    padding: 0 10px;
+    font-size: 1.2rem;
+}
+.person-desc {
+    text-align: left;
+    padding: 0 10px;
+    font-size: 1rem;
+}
+
+
+/* FOOTER */
+.footer {
+    grid-column: 1/13;
+}

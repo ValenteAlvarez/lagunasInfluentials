@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2018-2-14: Created with FontForge (http://fontforge.org)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+<metadata>
+Created by FontForge 20160405 at Wed Feb 14 02:37:39 2018
+ By Apache
+Copyright (c) 2018, Apache
+</metadata>
+<defs>
+<font id="Flaticon" horiz-adv-x="512" >
+  <font-face 
+    font-family="Flaticon"
+    font-weight="400"
+    font-stretch="normal"
+    units-per-em="512"
+    panose-1="2 0 5 3 0 0 0 0 0 0"
+    ascent="448"
+    descent="-64"
+    bbox="0 -64 512 448"
+    underline-thickness="25.6"
+    underline-position="-51.2"
+    unicode-range="U+0020-F101"
+  />
+    <missing-glyph />
+    <glyph glyph-name="space" unicode=" " horiz-adv-x="200" 
+ />
+    <glyph glyph-name="uniF100" unicode="&#xf100;" 
+d="M256 448c141.154 0 256 -114.836 256 -256s-114.846 -256 -256 -256s-256 114.836 -256 256s114.846 256 256 256zM256 -44.3076c130.294 0 236.308 106.014 236.308 236.308s-106.014 236.308 -236.308 236.308s-236.308 -106.014 -236.308 -236.308
+s106.014 -236.308 236.308 -236.308zM379.077 201.846c5.43457 0 9.8457 -4.40039 9.8457 -9.8457s-4.41113 -9.8457 -9.8457 -9.8457h-113.231v-118.154c0 -5.44531 -4.41016 -9.8457 -9.8457 -9.8457s-9.8457 4.40039 -9.8457 9.8457v118.154h-113.231
+c-5.43457 0 -9.8457 4.40039 -9.8457 9.8457s4.41113 9.8457 9.8457 9.8457h113.231v108.309c0 5.44434 4.41016 9.8457 9.8457 9.8457s9.8457 -4.40137 9.8457 -9.8457v-108.309h113.231z" />
+    <glyph glyph-name="uniF101" unicode="&#xf101;" 
+d="M387.058 202.207c5.58008 -5.58008 5.58008 -14.8076 -0.107422 -20.3867l-241.528 -241.528c-2.78906 -2.89746 -6.54492 -4.29199 -10.1934 -4.29199c-3.64746 0 -7.40332 1.50195 -10.1934 4.29199c-5.68652 5.68652 -5.68652 14.8066 0 20.4941l231.228 231.228
+l-231.228 231.228c-5.68652 5.68652 -5.68652 14.8066 0 20.4941c5.6875 5.68652 14.8076 5.68652 20.4941 0z" />
+  </font>
+</defs></svg>
