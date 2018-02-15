@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(236, 236, 236);
 }
 h1,h2,h3,h4,p,ul,li {
     margin: 0;
@@ -35,7 +36,6 @@ h1,h2,h3,h4,p,ul,li {
 /* YEAR PICKER */
 .years {
     grid-column: 1/4;
-    grid-row: 2/3;
     align-self: start;
 }
 .year-list {
@@ -86,7 +86,7 @@ h1,h2,h3,h4,p,ul,li {
 }
 /* Individual names */
 .year-list li ul li {
-    padding: 6px 10px;
+    padding: 10px;
     font-size: 0.8rem;
     text-align: center;
     transition: background-color 0.3s ease;
@@ -100,8 +100,7 @@ h1,h2,h3,h4,p,ul,li {
 /* CONTENT */
 .content {
     grid-column: 4/13;
-    grid-row: 2/3;
-    background-color: grey;
+    min-height: 100vh;
 }
 .year-displayed {
     color: black;
@@ -109,6 +108,18 @@ h1,h2,h3,h4,p,ul,li {
     padding: 1rem 0;
 }
 
+/* ANIMATIONS FOR EACH PERSON'S CARD */
+@keyframes grow {
+    from {
+        transform: scale3d(0.5, 0.5, 1);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale3d(1,1,1);
+        opacity: 1;
+    }
+}
 
 /* PEOPLE */
 .people-container{
@@ -117,28 +128,29 @@ h1,h2,h3,h4,p,ul,li {
     justify-content: center;
 }
 .person {
+    animation-name: grow;
+    animation-duration: 0.5s;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50% auto auto 35%;
-    background-color: whitesmoke;
+    grid-template-rows: 50% 17% 10% auto;
+    background-color: white;
     border-left: 5px solid rgb(105, 38, 38);
     color: rgb(29, 29, 29);
-    padding-bottom: 10px;
     margin: 1rem;
-    flex-basis: 15rem;
+    flex-basis: 17rem;
+    height: 25rem;
     flex-shrink: 1;
-    height: 19rem;
     align-items: center;
     overflow: hidden;
-    box-shadow: 2px 2px 10px grey;
+    /* box-shadow: 2px 2px 10px grey; */
 }
 
 .person-img {
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(131, 48, 48);    
     background-size: cover;
     align-self: stretch;
     overflow: hidden;
-    z-index: 2;
+    z-index: 1;
     position: relative;
 }
 
@@ -152,7 +164,7 @@ h1,h2,h3,h4,p,ul,li {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 3;
     transform: translateX(-100%);
     transform-origin: top;
     transition: transform 0.3s ease; 
@@ -176,12 +188,13 @@ h1,h2,h3,h4,p,ul,li {
 .person-name {
     text-align: left;
     padding: 0 10px;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    line-height: 1.7rem;
 }
 .person-occu {
     text-align: left;
     padding: 0 10px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 .person-desc {
     text-align: left;
@@ -193,4 +206,111 @@ h1,h2,h3,h4,p,ul,li {
 /* FOOTER */
 .footer {
     grid-column: 1/13;
+}
+
+@keyframes details-overlay {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    10% {
+        display: block;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes details-card {
+    from {
+        transform: translateY(-100vh);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* DETAILS CARD */
+.person-details-container {
+    z-index: 99;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.7);
+    padding: 2rem 3rem;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(-100vh);
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.person-details-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}    
+
+.person-details {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    transform: translateY(-100vh);
+    transition: transform 0.5s ease-in-out;
+}
+
+.person-details.show {
+    transform: translateY(0);
+}    
+
+.person-details .details-img {
+    grid-column: 1/2;
+    background-color: black;
+}
+
+.person-details .details-info {
+    grid-column: 2/3;
+    box-sizing: border-box;
+    padding: 1rem;
+    display: grid;
+    align-items: start;
+    grid-template-rows: 10% 10% 70% 10%;
+    background-color: white;
+    box-shadow: 10px 0 20px -15px black inset;
+}
+
+.details-info .details-name {
+    border-bottom: 1px solid grey;
+}
+.details-info .details-desc-long {
+    margin: 1rem 0;
+}    
+.details-info .details-contact {
+    display: flex;
+    justify-content: center;
+    align-self: end;
+}    
+.details-info .details-contact > span {
+    font-size: 2rem;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 1rem;
+}
+
+@media all and (max-width: 760px){
+    .grid-main {
+        grid-template-columns: 1fr;
+    }
+
+    .top-bar, .years, .footer, .content {
+        grid-column: 1/2;
+    }
+    .person {
+        flex-basis: 21rem;
+        height: 27rem;
+    }
+    .year-list li ul li {
+        font-size: 1.1rem;
+    }
 }
