@@ -13,14 +13,14 @@ const people = {
         Valente: {
             img: "https://goo.gl/uwsPbx",
             name: "Valente Alvarez Ortiz",
-            occupation: "Businessman in 2016",
+            occupation: "Presidente elegido durante la campaña del 2016",
             descShort: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
             descLong: "Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit"
         },
         BetoValdes: {
             img: "https://goo.gl/ZGNPMH",
             name: "Alberto Valdes Rosales",
-            occupation: "Businessman in 2016",
+            occupation: "CEO del grupo REMA",
             descShort: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
             descLong: "Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit"
         }
@@ -29,7 +29,7 @@ const people = {
         BetoSalas: {
             img: "https://goo.gl/c6ou4a",
             name: "Alberto Salas",
-            occupation: "Businessman in 2016",
+            occupation: "Presidente elegido durante la campaña del 2017",
             descShort: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
             descLong: "Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit"
         }
@@ -189,36 +189,58 @@ detailsCardContainer.addEventListener('click', closeDetailsCard);
 var detailsCard = document.querySelector('.person-details');
 // Fill details card from chosen person
 function fillDetailsCard(e){ 
+    var key = e.target.dataset.person;
     var refObj = {};
     detailsCardContainer.classList.add('show');
     detailsCard.classList.add('show');
     switch (e.target.nodeName) {
         //from the sidebar names
         case "LI":
-        console.log('this was fired by a <li>');   
+            //if it came from the sidebar lists, it checks the parent element for class name, which will give us the year of the person selected, so that we can use the person's key on the proper year, and set that as our reference object to fill up de details card, since that is how the object items are arranged; by year.
+            var parent = e.target.parentElement;
+            //if the person is from 2015...
+            if (parent.classList.contains('2015-list')){
+               refObj = people.p2015[key];
+            }
+            //if the person is from 2016...
+            else if (parent.classList.contains('2016-list')){
+                refObj = people.p2016[key];
+            }
+            //if the person is from 2017...
+            else if (parent.classList.contains('2017-list')){
+                refObj = people.p2017[key];
+            }
             break;
         // from the individual cards
         case "DIV":
+            
             console.log('this was fired by a <div>');
             break
         case "SPAN":
             console.log('this was fired by a <span>');
             break;
     }
-    console.log(refObj);
     //actually fill the damn thing
     //image
     var imgBlank = document.querySelector('.person-details > .details-img img');
+    imgBlank.src = refObj.img;
     //name
     var nameBlank = document.querySelector('.person-details > .details-info > .details-name');
+    nameBlank.textContent = refObj.name;
     //occupation
     var occuBlank = document.querySelector('.person-details > .details-info > .details-occu');
+    occuBlank.textContent = refObj.occupation;
     //Long description
     var descBlank = document.querySelector('.person-details > .details-info > .details-desc-long');
+    descBlank.textContent = refObj.descLong;
     //quote(s)
     var quotBlank = document.querySelector('.person-details > .details-info > .details-quotes');
-
-
+    quotBlank.innerHTML = "";
+    for (var a=0; a < refObj.quotes.length; a++){
+        var newLi = document.createElement('li');
+        newLi.textContent = refObj.quotes[a];
+        quotBlank.appendChild(newLi);
+    }
 }
 
 //Closes the details card. Self-explanatory
@@ -231,6 +253,3 @@ function closeDetailsCard(e){
 //initialize with every card displayed
 window.onload = document.querySelector('#show-all').click();
 
-
-const testElem = document.querySelector('.test-custom');
-alert(testElem.dataset.person);
