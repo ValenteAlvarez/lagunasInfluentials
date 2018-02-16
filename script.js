@@ -49,7 +49,7 @@ for (var a=0; a< nestedUls.length; a++){
                 var newLi = document.createElement('li');
                 newLi.textContent = people.p2015[prop].name;
                 nestedUls[a].appendChild(newLi);
-                newLi.id = prop;
+                newLi.dataset.person = prop;
                 newLi.addEventListener('click', fillDetailsCard);        
             }
             break;
@@ -59,7 +59,7 @@ for (var a=0; a< nestedUls.length; a++){
                 newLi.textContent = people.p2016[prop].name;
                 nestedUls[a].appendChild(newLi);
                 newLi.addEventListener('click', fillDetailsCard);
-                newLi.id = prop;             
+                newLi.dataset.person = prop;             
             }
             break;
         case '2017-list': 
@@ -68,7 +68,7 @@ for (var a=0; a< nestedUls.length; a++){
                 newLi.textContent = people.p2017[prop].name;
                 nestedUls[a].appendChild(newLi);
                 newLi.addEventListener('click', fillDetailsCard);
-                newLi.id = prop;               
+                newLi.dataset.person = prop;               
             }
             break;
     }
@@ -97,31 +97,31 @@ function chooseYear(e){
         case 'p2015':
             peopleContainer.innerHTML = "";
             for (var prop in people.p2015){
-                createPerson('p2015', people.p2015[prop]);
+                createPerson('p2015', people.p2015[prop], prop);
             }
             break;
         case 'p2016':
             peopleContainer.innerHTML = "";
             for (var prop in people.p2016){
-                createPerson('p2016', people.p2016[prop]);
+                createPerson('p2016', people.p2016[prop], prop);
             }
             break;
         case 'p2017':
             peopleContainer.innerHTML = "";
             for (var prop in people.p2017){
-                createPerson('p2017', people.p2017[prop]);
+                createPerson('p2017', people.p2017[prop], prop);
             }
             break;
         case 'show-all': 
             peopleContainer.innerHTML = "";
             for (var prop in people.p2015){
-                createPerson('p2015', people.p2015[prop]);
+                createPerson('p2015', people.p2015[prop], prop);
             }
             for (var prop in people.p2016){
-                createPerson('p2016', people.p2016[prop]);
+                createPerson('p2016', people.p2016[prop], prop);
             }
             for (var prop in people.p2017){
-                createPerson('p2017', people.p2017[prop]);
+                createPerson('p2017', people.p2017[prop], prop);
             }
             break;
         default: 
@@ -129,7 +129,7 @@ function chooseYear(e){
     }
 }
 // CREATE INDIVIDUAL CARD
-function createPerson(year, personObj){
+function createPerson(year, personObj, personKey){
     // main person's div
     var newPerson = document.createElement('div');
     newPerson.classList.add('person');
@@ -140,6 +140,7 @@ function createPerson(year, personObj){
     //create overlay
     var imgOverlay = document.createElement('div');
     imgOverlay.classList.add('img-overlay');
+    imgOverlay.dataset.person = personKey;
     //add event listener to open the details card (on the red part)
     imgOverlay.addEventListener('click', fillDetailsCard);
     //Create components of overlay 
@@ -186,31 +187,15 @@ var detailsCardContainer = document.querySelector('.person-details-container');
 detailsCardContainer.addEventListener('click', closeDetailsCard);
 
 var detailsCard = document.querySelector('.person-details');
-// Fill details card from each person
+// Fill details card from chosen person
 function fillDetailsCard(e){ 
-    var refObject = {};
+    var refObj = {};
     detailsCardContainer.classList.add('show');
     detailsCard.classList.add('show');
     switch (e.target.nodeName) {
         //from the sidebar names
         case "LI":
-            var refYear = e.target.parentElement;
-            //if it comes from 2015...
-            if (refYear.classList.contains('2015-list')){
-                console.log('this came from the 2015 list');
-                refObj = people.p2015;
-            }
-            // if it comes from 2016...
-            else if (refYear.classList.contains('2016-list')){
-                console.log('this came from the 2016 list');     
-                refObj = people.p2016;                
-            } 
-            //if it comes from 2017...
-            else if (refYear.classList.contains('2017-list')){
-                console.log('this came from the 2017 list');
-                refObj = people.p2017;                
-            }
-
+        console.log('this was fired by a <li>');   
             break;
         // from the individual cards
         case "DIV":
@@ -220,15 +205,32 @@ function fillDetailsCard(e){
             console.log('this was fired by a <span>');
             break;
     }
+    console.log(refObj);
+    //actually fill the damn thing
+    //image
+    var imgBlank = document.querySelector('.person-details > .details-img img');
+    //name
+    var nameBlank = document.querySelector('.person-details > .details-info > .details-name');
+    //occupation
+    var occuBlank = document.querySelector('.person-details > .details-info > .details-occu');
+    //Long description
+    var descBlank = document.querySelector('.person-details > .details-info > .details-desc-long');
+    //quote(s)
+    var quotBlank = document.querySelector('.person-details > .details-info > .details-quotes');
+
+
 }
 
 //Closes the details card. Self-explanatory
 function closeDetailsCard(e){
     if (e.target.classList.contains('person-details-container')){
         detailsCardContainer.classList.remove('show');
-        detailsCard.classList.remove('show');
     }
 }
 
 //initialize with every card displayed
 window.onload = document.querySelector('#show-all').click();
+
+
+const testElem = document.querySelector('.test-custom');
+alert(testElem.dataset.person);
