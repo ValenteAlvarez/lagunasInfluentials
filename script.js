@@ -5,7 +5,7 @@ const people = {
             name: "Gerardo Gamiochipi",
             occupation: "Businessman in 2016",
             descShort: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            descLong: "Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit",
+            descLong: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas nobis possimus cupiditate ut, quis dolorem earum id omnis soluta rerum libero exercitationem accusantium. Repellat est minus, possimus ea eligendi adipisci suscipit ad nulla maiores, reiciendis voluptatibus incidunt, doloribus a doloremque asperiores voluptate! Animi nisi deserunt suscipit aliquam vero facere voluptas itaque odio vel aliquid repellat libero doloribus delectus odit repudiandae, officia sapiente, voluptatibus totam temporibus voluptatum unde, aspernatur dolore saepe. Accusantium, quo natus obcaecati saepe incidunt blanditiis dolore ex possimus.",
             quotes: ["Gamio's quote #1", "Gamio's quote #2"]      
         }
     },
@@ -128,19 +128,20 @@ function chooseYear(e){
             break;
     }
 }
-// CREATE INDIVIDUAL CARD
+// CREATE INDIVIDUAL CARDS (Shown on the page's content)
 function createPerson(year, personObj, personKey){
     // main person's div
     var newPerson = document.createElement('div');
+    //add classes for person card, his/her specific year, his/her specific key
     newPerson.classList.add('person');
     newPerson.classList.add(year);
+    newPerson.dataset.person = personKey;
     // img div
     var newImgDiv = document.createElement('div');
     newImgDiv.classList.add('person-img');
     //create overlay
     var imgOverlay = document.createElement('div');
     imgOverlay.classList.add('img-overlay');
-    imgOverlay.dataset.person = personKey;
     //add event listener to open the details card (on the red part)
     imgOverlay.addEventListener('click', fillDetailsCard);
     //Create components of overlay 
@@ -189,13 +190,15 @@ detailsCardContainer.addEventListener('click', closeDetailsCard);
 var detailsCard = document.querySelector('.person-details');
 // Fill details card from chosen person
 function fillDetailsCard(e){ 
-    var key = e.target.dataset.person;
     var refObj = {};
+    var cardRoot;
     detailsCardContainer.classList.add('show');
     detailsCard.classList.add('show');
     switch (e.target.nodeName) {
         //from the sidebar names
         case "LI":
+            //the key is embedded in the LI element
+            var key = e.target.dataset.person;
             //if it came from the sidebar lists, it checks the parent element for class name, which will give us the year of the person selected, so that we can use the person's key on the proper year, and set that as our reference object to fill up de details card, since that is how the object items are arranged; by year.
             var parent = e.target.parentElement;
             //if the person is from 2015...
@@ -213,10 +216,25 @@ function fillDetailsCard(e){
             break;
         // from the individual cards
         case "DIV":
-            
-            console.log('this was fired by a <div>');
-            break
+            // if it comes from a div, it means the user clicked on the red portion of the personal card. We reference the "root" of the card for the dataset property of person and his/her year
         case "SPAN":
+            // if it comes from a span, the user clicked on the text of the card. We just need to go one leve deeper to find the card root. EVerything else is the same as with the div
+            if (e.target.nodeName === "DIV"){
+                cardRoot = e.target.parentElement.parentElement;
+            }
+            else if (e.target.nodeName === "SPAN"){
+                cardRoot = e.target.parentElement.parentElement.parentElement;
+            }
+            if (cardRoot.classList.contains('p2015')){
+                refObj = people.p2015[cardRoot.dataset.person];
+            }
+            else if (cardRoot.classList.contains('p2016')){
+                refObj = people.p2016[cardRoot.dataset.person];                
+            }
+            else if (cardRoot.classList.contains('p2017')){
+                refObj = people.p2017[cardRoot.dataset.person];                
+            }
+            break
             console.log('this was fired by a <span>');
             break;
     }
@@ -238,7 +256,8 @@ function fillDetailsCard(e){
     quotBlank.innerHTML = "";
     for (var a=0; a < refObj.quotes.length; a++){
         var newLi = document.createElement('li');
-        newLi.textContent = refObj.quotes[a];
+        newLi.classList.add('details-quotes');
+        newLi.textContent = '"' + refObj.quotes[a] + '"';
         quotBlank.appendChild(newLi);
     }
 }
